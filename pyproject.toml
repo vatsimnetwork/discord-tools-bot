@@ -1,0 +1,59 @@
+[project]
+name = "discord-tools-bot"
+version = "0.0.0"
+description = "VATSIM Community Discord server tools bot"
+requires-python = ">=3.13"
+dependencies = [
+    "aiohttp>=3.14.3,<4.0.0",
+    "aiokafka>=0.14.0,<0.15.0",
+    "discord-py>=2.7.1,<3.0.0",
+    "pydantic>=2.13.5,<3.0.0",
+    "pydantic-settings>=2.15.0,<3.0.0",
+]
+
+[tool.uv]
+add-bounds = "major"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.16.7,<0.17.0",
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.format]
+line-ending = "lf"
+
+[tool.ruff.lint]
+# pyflakes and pycodestyle first, then alphabetical
+select = [
+    "F",   # pyflakes
+    "E",   # pycodestyle -- errors
+    "W",   # pycodestyle -- warnings
+    "A",   # flake8-builtins
+    "B",   # flake8-bugbear
+    "BLE", # flake8-blind-except
+    "C4",  # flake8-comprehensions
+    "G",   # flake8-logging-format
+    "I",   # isort
+    "ISC", # flake8-implicit-str-concat
+    "LOG", # flake8-logging
+    "PLC", # pylint
+    "PLE", # pylint
+    "PLW", # pylint
+    "Q",   # flake8-quotes
+    "RUF", # ruff
+    "S",   # flake8-bandit
+    "SIM", # flake8-simplify
+    "T20", # flake8-print
+    "TID", # flake8-tidy-imports
+    "UP",  # pyupgrade
+]
+
+ignore = [
+    "A002",   # `id`/`type` are fixed by the VATSIM API payload and Discord option names
+    "E501",   # the formatter owns line length; this only fires on strings it cannot split
+    "SIM117", # a nested `async with` reads better than one combined statement
+]
