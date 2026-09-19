@@ -6,7 +6,7 @@ Discord bot for miscellaneous tasks on the VATSIM Community server.
 
 - `/charts` - ChartFox airport chart lookup
 - `/metar` - VATSIM METAR and AVWX TAF
-- `/screenshot` - post a screenshot as an embed
+- A button in the screenshot channels that posts an uploaded image as an embed
 - Relays VATSIM network broadcasts from Kafka to a channel
 - Posts VATSIM event and controller exam announcements
 
@@ -24,7 +24,8 @@ Set via environment variables or a `.env` file. A missing required variable abor
 | `EVENTS_CHANNEL_ID` | unset | Event announcements. Unset stops them |
 | `EXAMS_CHANNEL_ID` | unset | Controller exam announcements. Unset stops them |
 | `NETWORK_BROADCASTS_CHANNEL_ID` | unset | Network broadcast relay. Unset stops it |
-| `SCREENSHOT_VOTING_CHANNEL_ID` | unset | Channel where `/screenshot` adds an author header and a voting reaction. Unset gives every channel the plain embed |
+| `SCREENSHOT_CHANNEL_IDS` | `[]` | JSON list of channels that get the post button, e.g. `[123,456]` |
+| `SCREENSHOT_VOTING_CHANNEL_ID` | unset | Which of those channels adds an author header and a voting reaction. Unset gives every channel the plain embed |
 | `NETWORK_KAFKA_SERVER` | empty | Broadcast Kafka bootstrap server |
 | `NETWORK_KAFKA_USERNAME` | empty | Broadcast Kafka SASL username |
 | `NETWORK_KAFKA_PASSWORD` | empty | Broadcast Kafka SASL password |

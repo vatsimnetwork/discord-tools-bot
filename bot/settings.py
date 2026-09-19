@@ -23,4 +23,5 @@ class Settings(BaseSettings):
     network_kafka_server: str = ""
     network_kafka_username: str = ""
 
+    screenshot_channel_ids: list[int] = []
     screenshot_voting_channel_id: int | None = None
