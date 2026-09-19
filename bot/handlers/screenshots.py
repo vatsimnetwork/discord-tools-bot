@@ -61,11 +61,13 @@ class ScreenshotModal(ui.Modal, title="Post a screenshot"):
             file=await attachment.to_file(),
         )
 
+        # Anything sent here anchors to the prompt, which rotates out from under it
+        await interaction.delete_original_response()
+
         if voting:
             await message.add_reaction("\N{WHITE HEAVY CHECK MARK}")
 
         await self.cog.refresh_prompt(interaction.channel)
-        await interaction.followup.send("Screenshot posted.", ephemeral=True)
 
     async def on_error(self, interaction: Interaction, error: Exception) -> None:
         log.error("Screenshot submission failed", exc_info=error)
