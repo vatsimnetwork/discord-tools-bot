@@ -33,7 +33,7 @@ class ScreenshotModal(ui.Modal, title="Post a screenshot"):
             return
 
         # Downloading the attachment blows the three second interaction deadline
-        await interaction.response.defer()
+        await interaction.response.defer(ephemeral=True)
 
         caption = self.caption.component.value
         voting = interaction.channel_id == self.cog.bot.settings.screenshot_voting_channel_id
@@ -54,16 +54,18 @@ class ScreenshotModal(ui.Modal, title="Post a screenshot"):
                 icon_url=interaction.user.display_avatar.url,
             )
 
-        message = await interaction.followup.send(
+        # Sending through the channel rather than the interaction, whose followup
+        # renders as a reply to the prompt and is orphaned when the prompt rotates
+        message = await interaction.channel.send(
             embed=embed,
             file=await attachment.to_file(),
-            wait=True,
         )
 
         if voting:
             await message.add_reaction("\N{WHITE HEAVY CHECK MARK}")
 
         await self.cog.refresh_prompt(interaction.channel)
+        await interaction.followup.send("Screenshot posted.", ephemeral=True)
 
     async def on_error(self, interaction: Interaction, error: Exception) -> None:
         log.error("Screenshot submission failed", exc_info=error)
