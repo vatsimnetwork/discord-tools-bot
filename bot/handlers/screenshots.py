@@ -32,8 +32,9 @@ class ScreenshotModal(ui.Modal, title="Post a screenshot"):
             await interaction.response.send_message("That file is not an image.", ephemeral=True)
             return
 
-        # Downloading the attachment blows the three second interaction deadline
-        await interaction.response.defer(ephemeral=True)
+        # Downloading the attachment blows the three second interaction deadline.
+        # Deferring a modal submit is a silent ack - it shows the user nothing
+        await interaction.response.defer()
 
         caption = self.caption.component.value
         voting = interaction.channel_id == self.cog.bot.settings.screenshot_voting_channel_id
@@ -60,9 +61,6 @@ class ScreenshotModal(ui.Modal, title="Post a screenshot"):
             embed=embed,
             file=await attachment.to_file(),
         )
-
-        # Anything sent here anchors to the prompt, which rotates out from under it
-        await interaction.delete_original_response()
 
         if voting:
             await message.add_reaction("\N{WHITE HEAVY CHECK MARK}")
