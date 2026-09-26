@@ -7,6 +7,7 @@ Discord bot for miscellaneous tasks on the VATSIM Community server.
 - `/charts` - ChartFox airport chart lookup
 - `/metar` - VATSIM METAR and AVWX TAF
 - A button in the screenshot channels that posts an uploaded image as an embed
+- Publishes messages posted in announcement channels where it has Manage Messages
 - Relays VATSIM network broadcasts from Kafka to a channel
 - Posts VATSIM event and controller exam announcements
 

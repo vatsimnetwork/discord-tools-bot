@@ -13,7 +13,7 @@ class Bot(commands.Bot):
 
         case_insensitive = kwargs.pop("case_insensitive", True)
 
-        default_intents = Intents(guilds=True)
+        default_intents = Intents(guilds=True, guild_messages=True)
 
         intents = kwargs.pop("intents", default_intents)
 
@@ -29,6 +29,7 @@ class Bot(commands.Bot):
         self.log = logging.getLogger(__name__)
         self.settings = settings
         self._extensions_to_load = [
+            "bot.handlers.auto_publish",
             "bot.handlers.charts",
             "bot.handlers.error_handler",
             "bot.handlers.screenshots",
